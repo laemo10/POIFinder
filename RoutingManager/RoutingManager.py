@@ -7,7 +7,7 @@ class RoutingMngr(object):
     def __init__(self):
         return
 
-    def GetRandomClusterArrangment(self, nb_clusters : int, nb_points : int) -> list[int]:
+    def _GetRandomClusterArrangment(self, nb_clusters : int, nb_points : int) -> list[int]:
         return random.sample(range(nb_clusters), nb_points)
 
     def GetLoopCandidates(self,
@@ -27,7 +27,7 @@ class RoutingMngr(object):
         # Generate loop candidate
         loopCandidates = []
         for i in range(nb_Candidates):
-            group = [ coords_Array[random.choice(cluster_LookUpTable[i])] for i in self.GetRandomClusterArrangment(nb_Clusters, nb_Points) ]
+            group = [coords_Array[random.choice(cluster_LookUpTable[i])] for i in self._GetRandomClusterArrangment(nb_Clusters, nb_Points)]
             loopCandidates.append(group)
 
         return loopCandidates
@@ -47,7 +47,7 @@ class RoutingMngr(object):
             dist += self._Haversine(path[i], path[(i + 1) % len(path)])
         return dist
 
-    def _GetLoopMinimalHaversineDistance(self, points : list[list[float]]) -> (list[list[float]], float):
+    def GetLoopMinimalHaversineDistance(self, points : list[list[float]]) -> (list[list[float]], float):
         start = points[0]
         others = points[1:]
 
@@ -57,7 +57,6 @@ class RoutingMngr(object):
         for perm in permutations(others):
             path = [start] + list(perm)
             dist = self._LoopHaversineDistance(path)
-            print(dist)
             if dist < min_dist:
                 min_dist = dist
                 min_path = path
