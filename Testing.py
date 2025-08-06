@@ -1,5 +1,4 @@
 import numpy as np
-
 from ClusteringManager import ClusteringMngr
 from OverpassWrapper import OverpassWrapper
 from RoutingManager import RoutingMngr
@@ -22,7 +21,7 @@ plt.scatter(46.787485, -71.277272, color = "red")
 plt.show()
 
 loopCandidates = routingMngr.GetLoopCandidates(poisArray, clusters_array, 6, 5, 3)
-properpath, minDist = routingMngr._GetLoopMinimalHaversineDistance(loopCandidates[0])
+properpath, minDist = routingMngr.GetLoopMinimalHaversineDistance(loopCandidates[0])
 print(properpath)
 print(minDist)
 
